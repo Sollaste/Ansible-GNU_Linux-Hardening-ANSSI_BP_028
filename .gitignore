@@ -1,0 +1,45 @@
+# Terraform files sensibles
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+**/.terraform/*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Fichiers de plan Terraform
+*.tfplan
+tfplan
+
+# Clés SSH - CRITIQUE
+*.pem
+*.key
+*.ppk
+id_rsa
+id_rsa.pub
+.ssh/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Variables d'environnement
+.env
+.env.local
