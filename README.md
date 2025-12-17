@@ -1,4 +1,4 @@
-text
+
 # Ansible-GNU_Linux-Hardening-ANSSI_BP_028
 
 Infrastructure-as-code and Ansible content to automate GNU/Linux hardening based on the ANSSI BP-028 recommendations. This repository aims to provide a reproducible, **compliance-as-code** baseline for secure system configuration.
@@ -30,7 +30,6 @@ Infrastructure-as-code and Ansible content to automate GNU/Linux hardening based
 └── roles/ # Roles implementing ANSSI BP-028 controls
 └── ...
 
-text
 
 Adjust paths/names if your tree differs.
 
@@ -44,12 +43,13 @@ Adjust paths/names if your tree differs.
 - **Ansible** installed (locally or on the Ansible master VM)
 - An **SSH key pair** generated for VM access, for example:
 
+```
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
-
+```
 or
+```
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
-
-text
+```
 
 ---
 
@@ -57,21 +57,24 @@ text
 
 ### 1. Clone the repository
 
+```
 git clone https://github.com/Sollaste/Ansible-GNU_Linux-Hardening-ANSSI_BP_028.git
+```
+```
 cd Ansible-GNU_Linux-Hardening-ANSSI_BP_028/Terraform
-
-text
+```
 
 ### 2. Configure Terraform variables
 
 Use the example file as a safe template:
 
+```
 cp terraform.tfvars.example terraform.tfvars
-
-text
+```
 
 Edit `terraform.tfvars` and set at least:
 
+```
 subscription_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 location = "westeurope"
 admin_username = "azureadmin"
@@ -80,7 +83,7 @@ ssh_public_key_path = "C:/Users/you/.ssh/id_rsa.pub"
 allowed_ip_ranges = [
 "X.X.X.X/32", # your public IP
 ]
-
+```
 Optionally override:
 vnet_address_space, subnet_address_prefix, vm_size, tags, ...
 text
@@ -90,16 +93,20 @@ text
 ### 3. Deploy the Azure infrastructure
 
 Authenticate to Azure
+```
 az login
+```
+```
 az account set --subscription "<SUBSCRIPTION_ID>"
+```
 
 From the Terraform directory
-terraform init
-terraform validate
-terraform plan
-terraform apply
+- terraform init
+- terraform validate
+- terraform plan
+- terraform apply
 
-text
+
 
 Terraform will create:
 
@@ -114,20 +121,25 @@ Terraform will create:
 
 After `terraform apply`, check the outputs:
 
+```
 terraform output
+```
 
 if defined:
+```
 terraform output ssh_command_ansible_master
+```
+```
 terraform output ssh_command_node01
-
-text
+```
 
 Example usage:
 
+```
 ssh azureadmin@<ANSIBLE_MASTER_PUBLIC_IP>
 ssh azureadmin@<NODE01_PUBLIC_IP>
+```
 
-text
 
 Authentication is done with your SSH private key only; password logins are disabled by design.
 
@@ -140,6 +152,7 @@ Authentication is done with your SSH private key only; password logins are disab
 From the repository root:
 
 ansible/inventory.ini
+```
 [ansible_master]
 ansible-master ansible_host=<ANSIBLE_MASTER_PUBLIC_IP>
 
@@ -149,15 +162,15 @@ node01 ansible_host=<NODE01_PUBLIC_IP>
 [all:vars]
 ansible_user=azureadmin
 ansible_ssh_private_key_file=~/.ssh/id_rsa
-
-text
+```
 
 ### 2. Execute the hardening playbook
-
+```
 cd ansible
+```
+```
 ansible-playbook -i inventory.ini hardening.yml
-
-text
+```
 
 The playbook and roles are expected to implement ANSSI BP-028 controls, such as:
 
@@ -202,7 +215,6 @@ IDE / OS noise
 .DS_Store
 Thumbs.db
 
-text
 
 Use **tight CIDR ranges** in `allowed_ip_ranges` (ideally your fixed IP or VPN).
 
@@ -210,15 +222,6 @@ Destroy lab environments when not needed to reduce cost and exposure:
 
 terraform destroy
 
-text
-
----
-
-## Roadmap
-
-- Add Molecule tests for the Ansible roles
-- Integrate compliance scanners (OpenSCAP, Lynis, custom audit roles)
-- Add CI pipelines for Terraform + Ansible (`fmt`, `lint`, `validate`, dry-runs)
 
 ---
 
