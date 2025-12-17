@@ -15,7 +15,7 @@ Infrastructure-as-code and Ansible content to automate GNU/Linux hardening based
 ---
 
 ## Repository structure
-
+```
 .
 ├── Terraform/
 │ ├── main.tf # Azure resources (RG, VNet, NSG, NICs, IPs, VMs)
@@ -29,7 +29,7 @@ Infrastructure-as-code and Ansible content to automate GNU/Linux hardening based
 ├── hardening.yml # Main hardening playbook
 └── roles/ # Roles implementing ANSSI BP-028 controls
 └── ...
-
+```
 
 Adjust paths/names if your tree differs.
 
@@ -228,3 +228,4 @@ terraform destroy
 ## License
 
 Specify the license you want to use (e.g. `MIT`, `Apache-2.0`, `GPL-3.0`) and place the corresponding `LICENSE` file at the root of the repository.
+
