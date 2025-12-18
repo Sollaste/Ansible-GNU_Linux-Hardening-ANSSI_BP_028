@@ -27,10 +27,10 @@ variable "admin_username" {
   default     = "azureadmin"
 }
 
-variable "ssh_public_key_path" {
+variable "ssh_public_key_paths" {
   description = "Chemin vers la clé publique SSH"
-  type        = string
-  default     = "C:/Users/Florian/.ssh/fp25519.pub"
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_ip_ranges" {

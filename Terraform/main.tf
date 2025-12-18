@@ -256,9 +256,12 @@ resource "azurerm_linux_virtual_machine" "ansible_master" {
   admin_username                  = var.admin_username
   disable_password_authentication = true
 
-  admin_ssh_key {
-    username   = var.admin_username
-    public_key = file(var.ssh_public_key_path)
+  dynamic "admin_ssh_key" {
+    for_each = var.ssh_public_key_paths
+    content {
+      username   = var.admin_username
+      public_key = file(admin_ssh_key.value)
+    }
   }
 
   # Script d'initialisation pour installer Ansible
@@ -299,9 +302,12 @@ resource "azurerm_linux_virtual_machine" "node01" {
   admin_username                  = var.admin_username
   disable_password_authentication = true
 
-  admin_ssh_key {
-    username   = var.admin_username
-    public_key = file(var.ssh_public_key_path)
+  dynamic "admin_ssh_key" {
+    for_each = var.ssh_public_key_paths
+    content {
+      username   = var.admin_username
+      public_key = file(admin_ssh_key.value)
+    }
   }
 
   identity {
