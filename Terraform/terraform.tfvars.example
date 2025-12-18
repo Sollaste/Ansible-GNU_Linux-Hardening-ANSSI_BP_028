@@ -1,1 +1,33 @@
 
+# Configuration personnalisée du projet
+project_name = "anssi-bp-028"
+environment  = "production"
+location     = "westeurope"
+
+# Credentials
+admin_username       = "azureadmin"
+ssh_public_key_paths = [
+  "C:/Users/VOTRE_USER/.ssh/id_rsa.pub",
+  "C:/Users/VOTRE_USER/.ssh/id_ed25519.pub"
+]
+
+# Réseau
+vnet_address_space    = ["10.0.0.0/16"]
+subnet_address_prefix = "10.0.1.0/24"
+
+allowed_ip_ranges = [
+  "X.X.X.X/32", # Exemple IP publique poste admin
+  "Y.Y.Y.Y/32"  # Exemple IP publique VPN/bureau
+]
+
+# VM
+vm_size = "Standard_D2s_v3"
+
+# Tags
+tags = {
+  Project     = "ANSSI-BP-028"
+  Environment = "Production"
+  ManagedBy   = "Terraform"
+  Purpose     = "Ansible-Hardening"
+  Owner       = "Security-Team"
+}
