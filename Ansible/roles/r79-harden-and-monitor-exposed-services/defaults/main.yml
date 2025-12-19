@@ -1,0 +1,24 @@
+---
+# Pare-feu / exposition
+r79_manage_firewall: true
+r79_ssh_port: 22
+r79_allowed_ssh_sources:
+  - "10.0.1.4/32"   # ton IP
+
+# Durcissement SSH
+r79_sshd_config_path: "/etc/ssh/sshd_config"
+
+r79_sshd_settings:
+  Protocol: "2"
+  LogLevel: "VERBOSE"
+  PermitRootLogin: "no"
+  PasswordAuthentication: "no"
+  ChallengeResponseAuthentication: "no"
+  AllowAgentForwarding: "no"
+  PermitTunnel: "no"
+  X11Forwarding: "no"
+  MaxAuthTries: "3"
+  UsePAM: "yes"
+  ClientAliveInterval: "0"
+  ClientAliveCountMax: "2"
+  LoginGraceTime: "300"

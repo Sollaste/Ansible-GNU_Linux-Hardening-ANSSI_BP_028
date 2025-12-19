@@ -1,0 +1,7 @@
+---
+- name: ANSSI BP-028 - R79 (SSH uniquement)
+  hosts: hardened_nodes
+  become: yes
+
+  roles:
+    - r79-harden-exposed-services

@@ -1,0 +1,23 @@
+- name: "R79 | Déployer la configuration SSH durcie (fragment .d)"
+  copy:
+    dest: /etc/ssh/sshd_config.d/10-r79-hardening.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      # R79 - Durcissement SSH ANSSI BP-028
+      Protocol 2
+      LogLevel VERBOSE
+      PermitRootLogin no
+      PasswordAuthentication no
+      ChallengeResponseAuthentication no
+      AllowAgentForwarding no
+      PermitTunnel no
+      X11Forwarding no
+      MaxAuthTries 3
+      UsePAM yes
+      ClientAliveInterval 0
+      ClientAliveCountMax 2
+      LoginGraceTime 300
+  notify: "R79 | Redémarrer SSH"
+  tags: ['r79', 'ssh']

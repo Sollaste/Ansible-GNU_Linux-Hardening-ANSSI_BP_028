@@ -107,6 +107,21 @@ resource "azurerm_network_security_group" "ansible_master" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+
+  # Allow SSH from VNet (internal Ansible master, etc.)
+security_rule {
+  name                       = "AllowSSHFromVNet"
+  priority                   = 110
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_port_range          = "*"
+  destination_port_range     = "22"
+  source_address_prefix      = "10.0.0.0/16"   # ou le prefix du subnet: "10.0.0.0/16"
+  destination_address_prefix = "*"
+  description                = "Allow SSH from internal VNet"
+}
+
 }
 
 # Network Security Group pour Node01
@@ -155,6 +170,20 @@ resource "azurerm_network_security_group" "node" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+
+    # Allow SSH from VNet (internal Ansible master, etc.)
+security_rule {
+  name                       = "AllowSSHFromVNet"
+  priority                   = 110
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_port_range          = "*"
+  destination_port_range     = "22"
+  source_address_prefix      = "10.0.0.0/16"   # ou le prefix du subnet: "10.0.0.0/16"
+  destination_address_prefix = "*"
+  description                = "Allow SSH from internal VNet"
+}
 }
 
 # Public IP pour Ansible Master
