@@ -13,17 +13,12 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
+# Ansible
+.ansible/
+
 # Fichiers de plan Terraform
 *.tfplan
 tfplan
-
-# Clés SSH - CRITIQUE
-*.pem
-*.key
-*.ppk
-id_rsa
-id_rsa.pub
-.ssh/
 
 # IDE
 .vscode/
@@ -32,14 +27,9 @@ id_rsa.pub
 *.swo
 *.sublime-*
 
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Logs
-*.log
-
 # Variables d'environnement
 .env
 .env.local
+
+# venv
+venv/
